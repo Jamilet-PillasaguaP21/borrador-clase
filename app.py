@@ -10,22 +10,35 @@ def get_weather_data(city):
     API_KEY = config['API_KEY']
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&lang=es&units=metric'
     r = requests.get(url).json()
-    print(r)
     return r
 
 @app.route('/jami')
 def jami():
-    get_weather_data('Guayaquil')
     return get_weather_data('Guayaquil')
-
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('cv.html')
 
 @app.route('/clima')
 def clima():
     return 'clima'
+
+@app.route('/prueba')
+def prueba():
+    clima = get_weather_data('Guayaquil')
+    temperatura = str(clima['main']['temp'])
+    descripcion = str(clima['weather'][0]['description'])
+    icono = str(clima['weather'][0]['icon'])
+    
+    r_json = {
+        'ciudad': 'Guayaquil',
+        'temperatura': temperatura,
+        'descripcion': descripcion,
+        'icono': icono
+        }
+    return render_template('weather.html', clima = r_json) 
+
 
 if __name__ == '__main__':
     app.run(debug=True)

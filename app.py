@@ -26,13 +26,13 @@ def clima():
 
 @app.route('/prueba')
 def prueba():
-    clima = get_weather_data('Guayaquil')
+    clima = get_weather_data('Quito')
     temperatura = str(clima['main']['temp'])
     descripcion = str(clima['weather'][0]['description'])
     icono = str(clima['weather'][0]['icon'])
     
     r_json = {
-        'ciudad': 'Guayaquil',
+        'ciudad': 'Quito',
         'temperatura': temperatura,
         'descripcion': descripcion,
         'icono': icono
